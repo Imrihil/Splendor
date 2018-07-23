@@ -1,0 +1,11 @@
+﻿@model PagedList.IPagedList<Splendor.Models.Log>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Logs</h2>
+
+<div id="LogsTable">
+    @Html.Partial("_IndexTable", Model)
+</div>

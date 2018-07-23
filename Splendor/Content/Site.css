@@ -1,0 +1,282 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* General */
+
+* {
+    color: #ffffff;
+    transition: all 0.5s ease-in-out;
+}
+
+body {
+    background: fixed;
+    background: #20242d; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(circle, #486072, #20242d); /* Safari */
+    background: -o-linear-gradient(right, #20242d, #486072, #20242d); /* For Opera 11.1 to 12.0 */
+    background: -moz-radial-gradient(circle, #486072, #20242d); /* Firefox 3.6 to 15 */
+    background: radial-gradient(circle, #486072, #20242d); /* Standard syntax */
+    scrollbar-face-color: #202020;
+    scrollbar-track-color: #000509;
+}
+
+.jumbotron {
+    background: none;
+}
+
+/* Tables */
+
+.table tbody > tr > th {
+    border: none;
+    background: rgba(33, 33, 33, 0.65);
+}
+
+.table tbody > tr > td {
+    background: rgba(180, 240, 255, 0.30);
+    border: none;
+}
+
+.table-link tbody > tr:hover > td {
+    background: rgba(180, 240, 255, 0.15);
+    border: none;
+    cursor: pointer;
+}
+
+.table tbody > tr:nth-child(2n+1) > td {
+    background: rgba(124, 209, 255, 0.30);
+}
+
+.table-link tbody > tr:nth-child(2n+1):hover > td {
+    background: rgba(124, 209, 255, 0.15);
+    cursor: pointer;
+}
+
+/* Select */
+
+select {
+}
+
+    select > option {
+        background: rgba(25, 42, 51, 1);
+    }
+
+/* Links and buttons */
+
+a {
+    color: #ecba20;
+}
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+.btn, .btn-default {
+    min-width: 150px;
+}
+
+.btn, .btn-default, .btn-table {
+    color: #282828;
+    background: #cfd8e1; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#cfd8e1, #b5b5b5); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#cfd8e1, #b5b5b5); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#cfd8e1, #b5b5b5); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#cfd8e1, #b5b5b5); /* Standard syntax */
+    border: solid 1px #dedede;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+    a:hover, a:focus, a:active, .btn:hover, .btn:focus, .btn:active {
+        color: #ffffff;
+        text-decoration: none !important;
+    }
+
+    .btn:hover, .btn:focus, .btn:active {
+        color: #282828;
+        background: #bfc8d1; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#bfc8d1, #a5a5a5); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#bfc8d1, #a5a5a5); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#bfc8d1, #a5a5a5); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#bfc8d1, #a5a5a5); /* Standard syntax */
+        border: solid 1px #d0d0d0;
+    }
+
+/* Images */
+
+img {
+    border: solid 0px;
+    border-radius: 10px;
+}
+
+/* Navbars */
+
+.navbar-brand {
+    height: 40px;
+}
+
+.navbar {
+    background: #0a0d10; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#0a0d10, #000509); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#0a0d10, #000509); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#0a0d10, #000509); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#0a0d10, #000509); /* Standard syntax */
+    box-shadow: 0px 2px 10px #000509;
+    max-height: 51px;
+}
+
+    .navbar .dropdown-menu {
+        background: #000509;
+        border: solid 0px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 50px;
+    }
+
+.navbar-inverse .navbar-collapse {
+    background: #000509;
+    border: solid 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.navbar-inverse .navbar-nav li a,
+.navbar-inverse .navbar-nav > .dropdown > ul > li > a,
+.navbar-inverse .navbar-nav > .dropdown a,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav > li > a {
+    border-radius: 10px;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > ul > li > a,
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > .dropdown a {
+    color: #e0f0ff;
+    background: none;
+    margin: 5px;
+    padding: 10px;
+    border: solid 0px;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > ul > li:last-child > a {
+    border-bottom-right-radius: 40px;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > .dropdown > ul > li > a:hover {
+    background: none;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > .dropdown > ul > li > a:hover {
+    background: #0d1015;
+    margin: 5px;
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .navbar-inverse .navbar-brand:active, .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
+        margin-left: -15px;
+    }
+}
+
+/* Pagination */
+
+ul.pagination {
+}
+
+.pagination > li > a,
+.pagination > .disabled > a {
+    color: #ffffff;
+    background: rgba(33, 33, 33, 0.65);
+    border: none;
+}
+
+    .pagination > li > a:hover {
+        background: rgba(33, 33, 33, 1);
+    }
+
+    .pagination > .disabled > a:hover {
+        cursor: default;
+        background: rgba(33, 33, 33, 0.65);
+    }
+
+.pagination > .active > a {
+    background: rgba(62, 104, 127, 0.65);
+}
+
+    .pagination > .active > a:hover {
+        background: rgba(62, 104, 127, 1);
+    }
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 12px; /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: #000509;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #202020;
+    border: solid 3px #000509;
+    border-radius: 10px;
+}
+
+/* Others */
+
+div#Login .btn, div#Login button {
+    width: 200px;
+}
+
+p.text-info {
+    color: #ffffff;
+}
+
+p.text-success {
+    color: #ffffff;
+    background: #224422;
+    box-shadow: 0px 0px 5px 2px #224422;
+    width: auto;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+p.text-failure {
+    color: #ffffff;
+    background: #442222;
+    box-shadow: 0px 0px 5px 2px #442222;
+    width: auto;
+    padding: 5px;
+    border-radius: 10px;
+}

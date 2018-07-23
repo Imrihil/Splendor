@@ -1,0 +1,90 @@
+﻿@model Splendor.Models.Card
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Card</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Gem.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gem.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lvl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lvl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostGreen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostGreen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostWhite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostWhite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostBlue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostBlue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostBlack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostBlack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn" })
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn" })
+</p>

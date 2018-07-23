@@ -1,0 +1,136 @@
+﻿@model IOrderedEnumerable<Splendor.Models.Game>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    string searchString = ViewBag.SearchString ?? "";
+    int pageSize = ViewBag.PageSize ?? 1;
+    int pagePlayerStartedNumber = ViewBag.PagePlayerStartedNumber ?? 1;
+    int pagePlayerCreatedNumber = ViewBag.PagePlayerCreatedNumber ?? 1;
+    int pageCreatedNumber = ViewBag.PageCreatedNumber ?? 1;
+    int pageStartedNumber = ViewBag.PageStartedNumber ?? 1;
+    int pageEndedNumber = ViewBag.PageEndedNumber ?? 1;
+
+    PagedList.IPagedList<Splendor.Models.Game> yourStartedGames = Model.Where(x => x.IsStarted == true && x.IsEnded == false &&
+x.PlayerInGames.Any(y => y.Player.UserName.Equals(User.Identity.Name))).ToPagedList(pagePlayerStartedNumber, pageSize);
+    if (yourStartedGames.Any())
+    {
+        ViewBag.Page = pagePlayerStartedNumber;
+        <h4>Your started games</h4>
+
+        <div class="games-player-started" id="GamesPlayerStarted">
+            @Html.Partial("_IndexTable", yourStartedGames)
+
+            <div>
+                @Html.PagedListPager(yourStartedGames, page => Url.Action("Index", new
+           {
+               sortOrder = ViewBag.CurrentSort,
+               searchString = searchString,
+               pagePlayerStartedNumber = page,
+               pagePlayerCreatedNumber = pagePlayerCreatedNumber,
+               pageCreatedNumber = pageCreatedNumber,
+               pageStartedNumber = pageStartedNumber,
+               pageEndedNumber = pageEndedNumber
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "AllTables" }))
+            </div>
+        </div>
+    }
+
+    PagedList.IPagedList<Splendor.Models.Game> yourCreatedGames = Model.Where(x => x.IsStarted == false && x.IsEnded == false &&
+x.PlayerInGames.Any(y => y.Player.UserName.Equals(User.Identity.Name))).ToPagedList(pagePlayerCreatedNumber, pageSize);
+    if (yourCreatedGames.Any())
+    {
+        ViewBag.Page = pagePlayerCreatedNumber;
+        <h4>Your waiting games</h4>
+
+        <div class="games-player-created" id="GamesPlayerCreated">
+            @Html.Partial("_IndexTable", yourCreatedGames)
+
+            <div>
+                @Html.PagedListPager(yourCreatedGames, page => Url.Action("Index", new
+           {
+               sortOrder = ViewBag.CurrentSort,
+               searchString = searchString,
+               pagePlayerStartedNumber = pagePlayerStartedNumber,
+               pagePlayerCreatedNumber = page,
+               pageCreatedNumber = pageCreatedNumber,
+               pageStartedNumber = pageStartedNumber,
+               pageEndedNumber = pageEndedNumber
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "AllTables" }))
+            </div>
+        </div>
+    }
+
+    PagedList.IPagedList<Splendor.Models.Game> createdGames = Model.Where(x => x.IsStarted == false && x.IsEnded == false &&
+x.PlayerInGames.Any(y => y.Player.UserName.Equals(User.Identity.Name)) == false).ToPagedList(pageCreatedNumber, pageSize);
+    if (createdGames.Any())
+    {
+        ViewBag.Page = pageCreatedNumber;
+        <h4>Games to join</h4>
+
+        <div class="games-created" id="GamesCreated">
+            @Html.Partial("_IndexTable", createdGames)
+
+            <div>
+                @Html.PagedListPager(createdGames, page => Url.Action("Index", new
+           {
+               sortOrder = ViewBag.CurrentSort,
+               searchString = searchString,
+               pagePlayerStartedNumber = pagePlayerStartedNumber,
+               pagePlayerCreatedNumber = pagePlayerCreatedNumber,
+               pageCreatedNumber = page,
+               pageStartedNumber = pageStartedNumber,
+               pageEndedNumber = pageEndedNumber
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "AllTables" }))
+            </div>
+        </div>
+    }
+
+    PagedList.IPagedList<Splendor.Models.Game> startedGames = Model.Where(x => x.IsStarted == true && x.IsEnded == false &&
+x.PlayerInGames.Any(y => y.Player.UserName.Equals(User.Identity.Name)) == false).ToPagedList(pageStartedNumber, pageSize);
+    if (startedGames.Any())
+    {
+        ViewBag.Page = pageStartedNumber;
+        <h4>Started games</h4>
+
+        <div class="games-started" id="GamesStarted">
+            @Html.Partial("_IndexTable", startedGames)
+
+            <div>
+                @Html.PagedListPager(startedGames, page => Url.Action("Index", new
+           {
+               sortOrder = ViewBag.CurrentSort,
+               searchString = searchString,
+               pagePlayerStartedNumber = pagePlayerStartedNumber,
+               pagePlayerCreatedNumber = pagePlayerCreatedNumber,
+               pageCreatedNumber = pageCreatedNumber,
+               pageStartedNumber = page,
+               pageEndedNumber = pageEndedNumber
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "AllTables" }))
+            </div>
+        </div>
+    }
+
+    PagedList.IPagedList<Splendor.Models.Game> endedGames = Model.Where(x => x.IsEnded == true).ToPagedList(pageEndedNumber, pageSize);
+    if (endedGames.Any())
+    {
+        ViewBag.Page = pageEndedNumber;
+        <h4>Ended games</h4>
+
+        <div class="games-ended" id="GamesEnded">
+            @Html.Partial("_IndexTable", endedGames)
+
+            <div>
+                @Html.PagedListPager(endedGames, page => Url.Action("Index", new
+           {
+               sortOrder = ViewBag.CurrentSort,
+               searchString = searchString,
+               pagePlayerStartedNumber = pagePlayerStartedNumber,
+               pagePlayerCreatedNumber = pagePlayerCreatedNumber,
+               pageCreatedNumber = pageCreatedNumber,
+               pageStartedNumber = pageStartedNumber,
+               pageEndedNumber = page
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "AllTables" }))
+            </div>
+        </div>
+    }
+}

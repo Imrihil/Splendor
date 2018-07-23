@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<Splendor.Models.Log>
+@using PagedList.Mvc;
+@{
+    string searchType = ViewBag.SearchType ?? "";
+    string searchUserName = ViewBag.SearchUserName ?? "";
+    string searchGameName = ViewBag.SearchGameName ?? "";
+    string searchMessage = ViewBag.SearchMessage ?? "";
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            Time
+        </th>
+        <th>
+            User Name
+        </th>
+        <th>
+            Game Name
+        </th>
+        <th>
+            Message
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <input class="form-control text-box single-line" id="SearchType" name="SearchType" type="text" placeholder="type" value="@searchType.Replace('_',' ')" onkeyup='searchLogs(event, "@Url.Action("Index", "Logs", null)", "SearchType")'>
+        </th>
+        <th>
+
+        </th>
+        <th>
+            <input class="form-control text-box single-line" id="SearchUserName" name="SearchUserName" type="text" placeholder="user name" value="@searchUserName.Replace('_',' ')" onkeyup='searchLogs(event, "@Url.Action("Index", "Logs", null)", "SearchUserName")'>
+        </th>
+        <th>
+            <input class="form-control text-box single-line" id="SearchGameName" name="SearchGameName" type="text" placeholder="game name" value="@searchGameName.Replace('_',' ')" onkeyup='searchLogs(event, "@Url.Action("Index", "Logs", null)", "SearchGameName")'>
+        </th>
+        <th>
+            <input class="form-control text-box single-line" id="SearchMessage" name="SearchMessage" type="text" placeholder="search message" value="@searchMessage.Replace('_',' ')" onkeyup='searchLogs(event, "@Url.Action("Index", "Logs", null)", "SearchMessage")'>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, searchType = ViewBag.SearchType, searchUserName = ViewBag.SearchUserName, searchGameName = ViewBag.SearchGameName, searchMessage = ViewBag.SearchMessage }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "LogsTable" }))
+</div>

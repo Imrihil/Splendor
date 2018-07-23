@@ -1,0 +1,122 @@
+﻿@model Splendor.Models.PlayerInGame
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+
+    if (currentPlayer == null)
+    {
+        currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals("Observer"));
+    }
+}
+<div class='@Html.Raw(string.Format("{0} {1}", (Model.Equals(currentPlayer) ? "current-player" : Model.Equals(Model.Game.TableInGame) ? "table-player" : "player"), Model.IsActive ? "player-active" : "player-nonactive"))' id="@Model.Id">
+    @if (!Model.Equals(Model.Game.TableInGame))
+    {
+        <p class="player-name" onmouseover="slideArea(@Html.Raw(Model.Id))">
+            @string.Format("{0} {1}", Model.Player.UserName, Model.Points)
+        </p>
+        if (Model.Id.Equals(currentPlayer.Id))
+        {
+            <div class="player-cards">
+                @for (var i = 0; i < Model.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.white) && x.IsOnTable == true).Count(); ++i)
+                    {
+                    <img src="/Images/Gem/cardGem1.png" alt="white" />
+                }
+                @for (var i = 0; i < Model.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.blue) && x.IsOnTable == true).Count(); ++i)
+                    {
+                    <img src="/Images/Gem/cardGem2.png" alt="blue" />
+                }
+                @for (var i = 0; i < Model.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.green) && x.IsOnTable == true).Count(); ++i)
+                    {
+                    <img src="/Images/Gem/cardGem0.png" alt="green" />
+                }
+                @for (var i = 0; i < Model.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.red) && x.IsOnTable == true).Count(); ++i)
+                    {
+                    <img src="/Images/Gem/cardGem4.png" alt="red" />
+                }
+                @for (var i = 0; i < Model.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.black) && x.IsOnTable == true).Count(); ++i)
+                    {
+                    <img src="/Images/Gem/cardGem3.png" alt="black" />
+                }
+            </div>
+                <div class="player-gems">
+                    @for (var i = 0; i < Model.ResourceGold; ++i)
+                    {
+                        <img src="/Images/Gem/gem5.png" alt="gold" />
+                    }
+                    @for (var i = 0; i < Model.ResourceBlack; ++i)
+                    {
+                        <img src="/Images/Gem/gem3.png" alt="black" />
+                    }
+                    @for (var i = 0; i < Model.ResourceRed; ++i)
+                    {
+                        <img src="/Images/Gem/gem4.png" alt="red" />
+                    }
+                    @for (var i = 0; i < Model.ResourceGreen; ++i)
+                    {
+                        <img src="/Images/Gem/gem0.png" alt="green" />
+                    }
+                    @for (var i = 0; i < Model.ResourceBlue; ++i)
+                    {
+                        <img src="/Images/Gem/gem2.png" alt="blue" />
+                    }
+                    @for (var i = 0; i < Model.ResourceWhite; ++i)
+                    {
+                        <img src="/Images/Gem/gem1.png" alt="white" />
+                    }
+                </div>
+        }
+
+        if (Model.Equals(currentPlayer))
+        {
+            <table class="current-player">
+                <tr>
+                    @Html.Partial("_PlayPlayerGems", Model)
+                    <td rowspan="2" class="cards-reserved">
+                        @Html.Partial("_PlayPlayerCardsReserved", Model)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="aristocrats">
+                        @Html.Partial("_PlayPlayerAristocrats", Model)
+                    </td>
+                    @Html.Partial("_PlayPlayerCards", Model)
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table class="player">
+                <tr>
+                    <td class="gems-aristocrats">
+                        @Html.Partial("_PlayPlayerGems", Model)
+                        @Html.Partial("_PlayPlayerAristocrats", Model)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cards">
+                        @Html.Partial("_PlayPlayerCards", Model)
+                        @Html.Partial("_PlayPlayerCardsReserved", Model)
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+    else
+    {
+        <table class="table-player">
+            <tr>
+                <td rowspan="2" class="gems">
+                    @Html.Partial("_PlayPlayerGems", Model)
+                </td>
+                <td class="aristocrats">
+                    @Html.Partial("_PlayPlayerAristocrats", Model)
+                </td>
+            </tr>
+            <tr>
+                <td class="cards">
+                    @Html.Partial("_PlayPlayerCards", Model)
+                </td>
+            </tr>
+        </table>
+    }
+
+</div>

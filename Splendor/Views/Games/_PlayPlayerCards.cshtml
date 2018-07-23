@@ -1,0 +1,227 @@
+﻿@model Splendor.Models.PlayerInGame
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+
+    if (currentPlayer == null)
+    {
+        currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals("Observer"));
+    }
+}
+
+@if (Model.Equals(Model.Game.TableInGame))
+{
+    <div class="cards">
+        <div class="lvl" id="lvl1">
+            @if (Model.CardInGames.Any(x => x.IsOnTable == false && x.Card.Lvl.Equals(1)))
+            {
+                @Ajax.ActionLink("CardPile1", "TakeRandomCard", "Games", new
+           {
+               id = Model.GameId,
+               playerInGameId = currentPlayer.Id,
+               lvl = 1
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive &&
+                        currentPlayer.CardInGames.Where(x => x.IsOnTable == false).Count() < 3 &&
+                        currentPlayer.IsCollectingGems == false ? "active" : "not-active"),
+               @style = "background: url(/Images/Back/back1.png) no-repeat top left"
+           })
+            }
+            else
+            {
+                <div class="empty-card"></div>
+            }
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.Lvl.Equals(1)))
+            {
+                int costGold;
+                bool canAfford = currentPlayer.CanAfford(item, out costGold);
+                @Ajax.ActionLink(item.Card.Id.ToString(), "TakeCard", "Games", new
+           {
+               id = Model.GameId,
+               cardInGameId = item.Id,
+               playerInGameId = currentPlayer.Id,
+               reserve = currentPlayer.IsReserving
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.IsCollectingGems == false &&
+                        (currentPlayer.IsReserving || canAfford) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left",
+               @onmousemove = "moveInfo(event);",
+               @onmouseover = currentPlayer.IsReserving ? "" : "createCardInfo(" +
+               Math.Min(item.Card.CostGreen - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.green) && x.IsOnTable).Count(), currentPlayer.ResourceGreen) + ", " +
+               Math.Min(item.Card.CostWhite - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.white) && x.IsOnTable).Count(), currentPlayer.ResourceWhite) + ", " +
+               Math.Min(item.Card.CostBlue - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.blue) && x.IsOnTable).Count(), currentPlayer.ResourceBlue) + ", " +
+               Math.Min(item.Card.CostBlack - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.black) && x.IsOnTable).Count(), currentPlayer.ResourceBlack) + ", " +
+               Math.Min(item.Card.CostRed - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.red) && x.IsOnTable).Count(), currentPlayer.ResourceRed) + ", " +
+               costGold + ")"
+           })
+            }
+        </div>
+        <div class="lvl" id="lvl2">
+            @if (Model.CardInGames.Any(x => x.IsOnTable == false && x.Card.Lvl.Equals(2)))
+            {
+                @Ajax.ActionLink("CardPile2", "TakeRandomCard", "Games", new
+           {
+               id = Model.GameId,
+               playerInGameId = currentPlayer.Id,
+               lvl = 2
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive &&
+                   currentPlayer.CardInGames.Where(x => x.IsOnTable == false).Count() < 3 &&
+                   currentPlayer.IsCollectingGems == false ? "active" : "not-active"),
+               @style = "background: url(/Images/Back/back2.png) no-repeat top left"
+           })
+            }
+            else
+            {
+                <div class="empty-card"></div>
+            }
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.Lvl.Equals(2)))
+            {
+                int costGold;
+                bool canAfford = currentPlayer.CanAfford(item, out costGold);
+                @Ajax.ActionLink(item.Card.Id.ToString(), "TakeCard", "Games", new
+           {
+               id = Model.GameId,
+               cardInGameId = item.Id,
+               playerInGameId = currentPlayer.Id,
+               reserve = currentPlayer.IsReserving
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.IsCollectingGems == false &&
+                        (currentPlayer.IsReserving || canAfford) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left",
+               @onmousemove = "moveInfo(event);",
+               @onmouseover = currentPlayer.IsReserving ? "" : "createCardInfo(" +
+               Math.Min(item.Card.CostGreen - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.green) && x.IsOnTable).Count(), currentPlayer.ResourceGreen) + ", " +
+               Math.Min(item.Card.CostWhite - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.white) && x.IsOnTable).Count(), currentPlayer.ResourceWhite) + ", " +
+               Math.Min(item.Card.CostBlue - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.blue) && x.IsOnTable).Count(), currentPlayer.ResourceBlue) + ", " +
+               Math.Min(item.Card.CostBlack - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.black) && x.IsOnTable).Count(), currentPlayer.ResourceBlack) + ", " +
+               Math.Min(item.Card.CostRed - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.red) && x.IsOnTable).Count(), currentPlayer.ResourceRed) + ", " +
+               costGold + ")"
+           })
+            }
+        </div>
+        <div class="lvl" id="lvl3">
+            @if (Model.CardInGames.Any(x => x.IsOnTable == false && x.Card.Lvl.Equals(3)))
+            {
+                @Ajax.ActionLink("CardPile3", "TakeRandomCard", "Games", new
+           {
+               id = Model.GameId,
+               playerInGameId = currentPlayer.Id,
+               lvl = 3
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive &&
+                   currentPlayer.CardInGames.Where(x => x.IsOnTable == false).Count() < 3 &&
+                   currentPlayer.IsCollectingGems == false ? "active" : "not-active"),
+               @style = "background: url(/Images/Back/back3.png) no-repeat top left"
+           })
+            }
+            else
+            {
+                <div class="empty-card"></div>
+            }
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.Lvl.Equals(3)))
+            {
+                int costGold;
+                bool canAfford = currentPlayer.CanAfford(item, out costGold);
+                @Ajax.ActionLink(item.Card.Id.ToString(), "TakeCard", "Games", new
+           {
+               id = Model.GameId,
+               cardInGameId = item.Id,
+               playerInGameId = currentPlayer.Id,
+               reserve = currentPlayer.IsReserving
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.IsCollectingGems == false &&
+                        (currentPlayer.IsReserving || canAfford) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left",
+               @onmousemove = "moveInfo(event);",
+               @onmouseover = currentPlayer.IsReserving ? "" : "createCardInfo(" +
+               Math.Min(item.Card.CostGreen - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.green) && x.IsOnTable).Count(), currentPlayer.ResourceGreen) + ", " +
+               Math.Min(item.Card.CostWhite - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.white) && x.IsOnTable).Count(), currentPlayer.ResourceWhite) + ", " +
+               Math.Min(item.Card.CostBlue - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.blue) && x.IsOnTable).Count(), currentPlayer.ResourceBlue) + ", " +
+               Math.Min(item.Card.CostBlack - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.black) && x.IsOnTable).Count(), currentPlayer.ResourceBlack) + ", " +
+               Math.Min(item.Card.CostRed - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.red) && x.IsOnTable).Count(), currentPlayer.ResourceRed) + ", " +
+               costGold + ")"
+           })
+            }
+        </div>
+    </div>
+}
+else
+{
+    if (Model.Equals(currentPlayer))
+    {
+        <td class="cards" id="cardGreen">
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(1)))
+            {
+                @Ajax.ActionLink(item.Card.Id.ToString(), "GiveBackCard", "Games", new { }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" },
+                new { @class = "not-active", @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left" })
+            }
+        </td>
+        <td class="cards" id="cardWhite">
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(2)))
+            {
+                @Ajax.ActionLink(item.Card.Id.ToString(), "GiveBackCard", "Games", new { }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" },
+                new { @class = "not-active", @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left" })
+            }
+        </td>
+        <td class="cards" id="cardBlue">
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(3)))
+            {
+                @Ajax.ActionLink(item.Card.Id.ToString(), "GiveBackCard", "Games", new { }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" },
+                new { @class = "not-active", @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left" })
+            }
+        </td>
+        <td class="cards" id="cardBlack">
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(4)))
+            {
+                @Ajax.ActionLink(item.Card.Id.ToString(), "GiveBackCard", "Games", new { }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" },
+                new { @class = "not-active", @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left" })
+            }
+        </td>
+        <td class="cards" id="cardRed">
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(5)))
+            {
+                @Ajax.ActionLink(item.Card.Id.ToString(), "GiveBackCard", "Games", new { }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" },
+                new { @class = "not-active", @style = "background: url(" + @Url.Content(item.Card.ImagePath) + ") no-repeat top left" })
+            }
+        </td>
+    }
+    else
+    {
+        <div>
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(1)))
+            {
+                <img src="@Url.Content(item.Card.ImagePath)" alt="@Html.Raw(item.CardId)" />
+            }
+        </div>
+        <div>
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(2)))
+            {
+                <img src="@Url.Content(item.Card.ImagePath)" alt="@Html.Raw(item.CardId)" />
+            }
+        </div>
+        <div>
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(3)))
+            {
+                <img src="@Url.Content(item.Card.ImagePath)" alt="@Html.Raw(item.CardId)" />
+            }
+        </div>
+        <div>
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(4)))
+            {
+                <img src="@Url.Content(item.Card.ImagePath)" alt="@Html.Raw(item.CardId)" />
+            }
+        </div>
+        <div>
+            @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == true && x.Card.GemId.Equals(5)))
+            {
+                <img src="@Url.Content(item.Card.ImagePath)" alt="@Html.Raw(item.CardId)" />
+            }
+        </div>
+    }
+}

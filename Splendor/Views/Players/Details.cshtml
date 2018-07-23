@@ -1,0 +1,52 @@
+﻿@model Splendor.Models.Player
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Player</h2>
+
+<div>
+    <h4>Detail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            Won games
+        </dt>
+        <dd>
+            @Html.Raw(Model.PlayerInGames.Count(x => x.IsWiner)) / @Html.Raw(Model.PlayerInGames.Count())
+        </dd>
+        <dt>
+            Started games
+        </dt>
+        <dd>
+            @foreach (var item in Model.PlayerInGames.Where(x => x.Game.IsEnded == false).OrderBy(x => x.Game.Name))
+            {
+                <p>@Html.ActionLink(item.Game.Name, "Details", "Games", new { id = item.Id }, new { })</p>
+            }
+        </dd>
+        <dt>
+            Ended games
+        </dt>
+        <dd>
+            @foreach (var item in Model.PlayerInGames.Where(x => x.Game.IsEnded == true).OrderBy(x => x.Game.Name))
+            {
+                <p>@Html.ActionLink(item.Game.Name, "Details", "Games", new { id = item.Id }, new { })</p>
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @if (User.Identity.Name.Equals(Splendor.UserRoles.UserAdmin))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn" })
+    }
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn" })
+</p>

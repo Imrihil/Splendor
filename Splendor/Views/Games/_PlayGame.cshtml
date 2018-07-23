@@ -1,0 +1,88 @@
+﻿@model Splendor.Models.Game
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+
+    if (currentPlayer == null)
+    {
+        currentPlayer = Model.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals("Observer"));
+    }
+
+    string saveClassesArgs = "";
+    var playerInGames = Model.PlayerInGames.Where(x => x.Id.Equals(Model.TableInGame.Id) == false && x.Name.Equals("Observer") == false);
+    foreach (var playerInGame in playerInGames)
+    {
+        saveClassesArgs = string.IsNullOrEmpty(saveClassesArgs) ? playerInGame.Id.ToString() : string.Format("{0}, {1}", saveClassesArgs, playerInGame.Id);
+    }
+}
+
+@Html.Partial("_PlayPlayer", Model.TableInGame)
+
+@if (currentPlayer.Name.Equals("Observer") == false)
+{
+    <div class="current-player-pane">
+        @Html.Partial("_PlayPlayer", currentPlayer)
+    </div>
+}
+<div class="players-opponents">
+    @foreach (var item in Model.PlayerInGames.Where(x => !x.Equals(Model.TableInGame) && !x.Equals(currentPlayer) && !x.Name.Equals("Observer")))
+    {
+        @Html.Partial("_PlayPlayer", item)
+    }
+</div>
+
+@Html.Partial("_PlayPlayerGemsTaken", currentPlayer)
+
+@if (currentPlayer.IsActive && !currentPlayer.IsCollectingGems)
+{
+    if (currentPlayer.IsReserving)
+    {
+        @Ajax.ActionLink("Buy cards", "ChangeReserving", "Games", new { id = Model.Id }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new { @class = "btn", @id = "book-buy" })
+    }
+    else if (currentPlayer.CardInGames.Where(x => x.IsOnTable == false).Count() < 3)
+    {
+        @Ajax.ActionLink("Book cards", "ChangeReserving", "Games", new { id = Model.Id }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new { @class = "btn", @id = "book-buy" })
+    }
+}
+
+<div id="CardInfo" class="not-active-info"></div>
+
+@if (ViewBag.EndGameInfo != null)
+{
+    <div id="EndInfo">
+        <p>This game has been ended.</p>
+        <p>The winner is @Html.ActionLink(Model.WinnerPlayer.Name, "Details", "Players", new { id = Model.WinnerPlayer.PlayerId }, new { })!</p>
+        <p class="btn" onclick="hidePopup(EndInfo)">Ok</p>
+    </div>
+}
+
+<script>
+    $(document).ready(
+        function () {
+            loadState();
+            $("div.player")
+              .mouseleave(function () {
+                  clearSlides();
+                  saveState(@Html.Raw(saveClassesArgs));
+              });
+            $("div.current-player")
+              .mouseleave(function () {
+                  clearSlides();
+                  saveState(@Html.Raw(saveClassesArgs));
+              });
+            $("div.cards a")
+              .mouseleave(function () {
+                  clearInfo();
+                  saveState(@Html.Raw(saveClassesArgs));
+              });
+            $("td.cards-reserved a")
+              .mouseleave(function () {
+                  clearInfo();
+                  saveState(@Html.Raw(saveClassesArgs));
+              });
+            $("a").mousedown(function () {
+                clearInfo();
+                saveState(@Html.Raw(saveClassesArgs));
+            });
+        }
+    )
+</script>

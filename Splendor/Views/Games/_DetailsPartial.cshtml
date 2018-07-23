@@ -1,0 +1,51 @@
+﻿@model Splendor.Models.Game
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerInGames)
+        </dt>
+        <dd>
+            <div id="PlayersList">
+                @foreach (var item in Model.PlayerInGames)
+                {
+                    @Html.ActionLink(item.Player.UserName, "Details", "Player", new { id = item.PlayerId }, "")
+                    <br />
+                }
+            </div>
+        </dd>
+    </dl>
+</div>
+<p>
+    @if (!Model.PlayerInGames.Any(x => x.Player.UserName.Equals(User.Identity.Name)))
+    {
+        <span>
+            @Ajax.ActionLink("Join", "Join", new { id = Model.Id }, new AjaxOptions()
+       {
+           HttpMethod = "Post",
+           UpdateTargetId = "GamePlay"
+       }, new { @class = "btn" })
+        </span>
+    }
+    @if (User.Identity.Name.Equals(Model.PlayerInGames.FirstOrDefault().Player.UserName))
+    {
+        <span>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn" })
+        </span>
+    }
+    @if (User.Identity.Name.Equals(Model.PlayerInGames.FirstOrDefault().Player.UserName) && Model.PlayerInGames.Count >= 2)
+    {
+        <span>
+            @Html.ActionLink("Play", "Play", new { id = Model.Id }, new { @class = "btn" })
+        </span>
+    }
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn" })
+</p>

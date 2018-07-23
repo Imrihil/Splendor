@@ -1,0 +1,239 @@
+﻿@model Splendor.Models.PlayerInGame
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+
+    if(currentPlayer == null)
+    {
+        currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals("Observer"));
+    }
+}
+
+<div class="gems">
+    @if (Model.Equals(Model.Game.TableInGame))
+    {
+        <div class="gems" id="greenResource">
+            @for (int i = 0; i < Model.ResourceGreen; ++i)
+            {
+                @Ajax.ActionLink("green", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.green,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.CanCollect(Splendor.Models.Gem.green) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.green)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+        <div class="gems" id="whiteResource">
+            @for (int i = 0; i < Model.ResourceWhite; ++i)
+            {
+                @Ajax.ActionLink("white", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.white,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.CanCollect(Splendor.Models.Gem.white) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.white)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+        <div class="gems" id="blueResource">
+            @for (int i = 0; i < Model.ResourceBlue; ++i)
+            {
+                @Ajax.ActionLink("blue", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.blue,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.CanCollect(Splendor.Models.Gem.blue) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.blue)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+        <div class="gems" id="blackResource">
+            @for (int i = 0; i < Model.ResourceBlack; ++i)
+            {
+                @Ajax.ActionLink("black", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.black,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.CanCollect(Splendor.Models.Gem.black) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.black)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+        <div class="gems" id="redResource">
+            @for (int i = 0; i < Model.ResourceRed; ++i)
+            {
+                @Ajax.ActionLink("red", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.red,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = @Html.Raw(currentPlayer.IsActive && currentPlayer.CanCollect(Splendor.Models.Gem.red) ? "active" : "not-active"),
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.red)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+        <div class="gems" id="goldResource">
+            @for (int i = 0; i < Model.ResourceGold; ++i)
+            {
+                @Ajax.ActionLink("gold", "TakeGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.gold,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = "not-active",
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.gold)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </div>
+    }
+    else if (Model.Equals(currentPlayer))
+    {
+        <td class="gems" id="goldResource">
+            @for (int i = 0; i < Model.ResourceGold; ++i)
+                {
+                @Ajax.ActionLink("gold", "GiveBackGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.gold,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = "not-active",
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.gold)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </td>
+        <td class="gems" id="greenResource">
+            @for (int i = 0; i < Model.ResourceGreen; ++i)
+                {
+                @Ajax.ActionLink("green", "GiveBackGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.green,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = "not-active",
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.green)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </td>
+        <td class="gems" id="whiteResource">
+            @for (int i = 0; i < Model.ResourceWhite; ++i)
+                {
+                @Ajax.ActionLink("white", "GiveBackGem", "Games", new
+           {
+               id = Model.GameId,
+               GemId = Splendor.Models.Gem.white,
+               playerInGameId = currentPlayer.Id
+           }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+           {
+               @class = "not-active",
+               @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.white)).ImagePath) + ") no-repeat top left"
+           })
+            }
+        </td>
+        <td class="gems" id="blueResource">
+            @for (int i = 0; i < Model.ResourceBlue; ++i)
+                {
+                @Ajax.ActionLink("blue", "GiveBackGem", "Games", new
+               {
+                   id = Model.GameId,
+                   GemId = Splendor.Models.Gem.blue,
+                   playerInGameId = currentPlayer.Id
+               }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+               {
+                   @class = "not-active",
+                   @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.blue)).ImagePath) + ") no-repeat top left"
+               })
+            }
+        </td>
+            <td class="gems" id="blackResource">
+                @for (int i = 0; i < Model.ResourceBlack; ++i)
+                {
+                    @Ajax.ActionLink("black", "GiveBackGem", "Games", new
+               {
+                   id = Model.GameId,
+                   GemId = Splendor.Models.Gem.black,
+                   playerInGameId = currentPlayer.Id
+               }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+               {
+                   @class = "not-active",
+                   @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.black)).ImagePath) + ") no-repeat top left"
+               })
+                }
+            </td>
+            <td class="gems" id="redResource">
+                @for (int i = 0; i < Model.ResourceRed; ++i)
+                {
+                    @Ajax.ActionLink("red", "GiveBackGem", "Games", new
+               {
+                   id = Model.GameId,
+                   GemId = Splendor.Models.Gem.red,
+                   playerInGameId = currentPlayer.Id
+               }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+               {
+                   @class = "not-active",
+                   @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+               FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.red)).ImagePath) + ") no-repeat top left"
+               })
+                }
+            </td>
+    }
+    else
+    {
+        <div class="gems">
+            @for (int i = 0; i < Model.ResourceWhite; ++i)
+            {
+                <img src="/Images/Gem/gem1.png" alt="white" />
+            }
+            @for (int i = 0; i < Model.ResourceBlue; ++i)
+            {
+                <img src="/Images/Gem/gem2.png" alt="blue" />
+            }
+            @for (int i = 0; i < Model.ResourceGreen; ++i)
+            {
+                <img src="/Images/Gem/gem0.png" alt="green" />
+            }
+            @for (int i = 0; i < Model.ResourceRed; ++i)
+            {
+                <img src="/Images/Gem/gem4.png" alt="red" />
+            }
+            @for (int i = 0; i < Model.ResourceBlack; ++i)
+            {
+                <img src="/Images/Gem/gem3.png" alt="black" />
+            }
+            @for (int i = 0; i < Model.ResourceGold; ++i)
+            {
+                <img src="/Images/Gem/gem5.png" alt="gold" />
+            }
+        </div>
+    }
+</div>

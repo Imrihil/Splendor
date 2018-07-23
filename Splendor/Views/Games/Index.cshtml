@@ -1,0 +1,21 @@
+﻿@model IOrderedEnumerable<Splendor.Models.Game>
+
+@{
+    ViewBag.Title = "Games";
+}
+
+<div id="GamesIndex">
+    <h2>Games</h2>
+
+    <p id="CreateNew">
+        @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn" })
+    </p>
+
+    <p>
+        <input class="form-control text-box single-line" id="Search" name="Search" type="text" placeholder="search game" onkeyup='searchGames("@Url.Action("Index", "Games", null)")'>
+    </p>
+
+    <div id="AllTables">
+        @Html.Partial("_IndexTables", Model)
+    </div>
+</div>

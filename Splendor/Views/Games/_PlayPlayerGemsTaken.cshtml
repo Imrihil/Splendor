@@ -1,0 +1,97 @@
+﻿@model Splendor.Models.PlayerInGame
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+
+    if (currentPlayer == null)
+    {
+        currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals("Observer"));
+    }
+}
+
+@if (currentPlayer.IsCollectingGems == true && Model.Id.Equals(currentPlayer.Id))
+{
+    <div class="gems-taken">
+        @for (int i = 0; i < Model.TakeGreen; ++i)
+        {
+            @Ajax.ActionLink("green", "GiveGem", "Games", new
+       {
+           id = Model.GameId,
+           GemId = Splendor.Models.Gem.green,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(string.Format("{0} {1}", "gem", currentPlayer.IsActive ? "active" : "not-active")),
+           @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+           FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.green)).ImagePath) + ") no-repeat top left"
+       })
+        }
+        @for (int i = 0; i < Model.TakeWhite; ++i)
+        {
+            @Ajax.ActionLink("white", "GiveGem", "Games", new
+       {
+           id = Model.GameId,
+           GemId = Splendor.Models.Gem.white,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(string.Format("{0} {1}", "gem", currentPlayer.IsActive ? "active" : "not-active")),
+           @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+           FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.white)).ImagePath) + ") no-repeat top left"
+       })
+        }
+        @for (int i = 0; i < Model.TakeBlue; ++i)
+        {
+            @Ajax.ActionLink("blue", "GiveGem", "Games", new
+       {
+           id = Model.GameId,
+           GemId = Splendor.Models.Gem.blue,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(string.Format("{0} {1}", "gem", currentPlayer.IsActive ? "active" : "not-active")),
+           @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+           FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.blue)).ImagePath) + ") no-repeat top left"
+       })
+        }
+        @for (int i = 0; i < Model.TakeBlack; ++i)
+        {
+            @Ajax.ActionLink("black", "GiveGem", "Games", new
+       {
+           id = Model.GameId,
+           GemId = Splendor.Models.Gem.black,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(string.Format("{0} {1}", "gem", currentPlayer.IsActive ? "active" : "not-active")),
+           @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+           FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.black)).ImagePath) + ") no-repeat top left"
+       })
+        }
+        @for (int i = 0; i < Model.TakeRed; ++i)
+        {
+            @Ajax.ActionLink("red", "GiveGem", "Games", new
+       {
+           id = Model.GameId,
+           GemId = Splendor.Models.Gem.red,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(string.Format("{0} {1}", "gem", currentPlayer.IsActive ? "active" : "not-active")),
+           @style = "background: url(" + @Url.Content(((ICollection<Splendor.Models.Gem>)ViewBag.Gems).
+           FirstOrDefault(x => x.Id.Equals(Splendor.Models.Gem.red)).ImagePath) + ") no-repeat top left"
+       })
+        }
+        <div class="btn-group-vertical" id="actionButtons">
+            @Ajax.ActionLink("Accept", "TakeCollectedGems", "Games", new { id = currentPlayer.GameId, playerInGameId = currentPlayer.Id }, new AjaxOptions()
+       {
+           HttpMethod = "Post",
+           UpdateTargetId = "GamePlay"
+       }, new { @class = "btn", @id = "accept" })
+            @Ajax.ActionLink("Cancel", "CancelCollectingGems", "Games", new { id = currentPlayer.GameId, playerInGameId = currentPlayer.Id }, new AjaxOptions()
+       {
+           HttpMethod = "Post",
+           UpdateTargetId = "GamePlay"
+       }, new { @class = "btn", @id = "cancel" })
+        </div>
+    </div>
+}

@@ -1,0 +1,42 @@
+﻿@model Splendor.Models.PlayerInGame
+@{Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));}
+
+@if (Model.Equals(currentPlayer))
+{
+    <div class="cards-reserved">
+        @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == false))
+        {
+            int costGold;
+            bool canAfford = currentPlayer.CanAfford(item, out costGold);
+            @Ajax.ActionLink(item.Card.Id.ToString(), "TakeCard", "Games", new
+       {
+           id = Model.GameId,
+           cardInGameId = item.Id,
+           playerInGameId = currentPlayer.Id
+       }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+       {
+           @class = @Html.Raw(Model.Equals(currentPlayer) && currentPlayer.IsActive &&
+            currentPlayer.IsCollectingGems == false && currentPlayer.IsReserving == false &&
+            canAfford ? "active" : "not-active"),
+           @style = "background: url(" + @Url.Content(Model.Equals(currentPlayer) ? item.Card.ImagePath : item.Card.BackPath) + ") no-repeat top left",
+           @onmousemove = "moveInfo(event);",
+           @onmouseover = currentPlayer.IsReserving ? "" : "createCardInfo(" +
+               Math.Min(item.Card.CostGreen - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.green) && x.IsOnTable).Count(), currentPlayer.ResourceGreen) + ", " +
+               Math.Min(item.Card.CostWhite - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.white) && x.IsOnTable).Count(), currentPlayer.ResourceWhite) + ", " +
+               Math.Min(item.Card.CostBlue - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.blue) && x.IsOnTable).Count(), currentPlayer.ResourceBlue) + ", " +
+               Math.Min(item.Card.CostBlack - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.black) && x.IsOnTable).Count(), currentPlayer.ResourceBlack) + ", " +
+               Math.Min(item.Card.CostRed - currentPlayer.CardInGames.Where(x => x.Card.GemId.Equals(Splendor.Models.Gem.red) && x.IsOnTable).Count(), currentPlayer.ResourceRed) + ", " +
+               costGold + ")"
+       })
+        }
+    </div>
+}
+else
+{
+    <div class="card-reserved">
+        @foreach (var item in Model.CardInGames.Where(x => x.IsOnTable == false))
+        {
+            <img src="@Url.Content(item.Card.BackPath)" alt="@Html.Raw(item.CardId)" />
+        }
+    </div>
+}

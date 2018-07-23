@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Splendor/obj/Debug
+/Splendor/bin
+/packages
+/Splendor/App_Data
+/.vs
+ConnectionStrings.config
+MailSettingsSecrets.config
+AppSettingsSecrets.config

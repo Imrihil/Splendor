@@ -1,0 +1,8 @@
+﻿#GamesIndex > p#CreateNew {
+    position: relative;
+    float: right;
+}
+
+#GamesIndex table tr td {
+    width: 1000px;
+}

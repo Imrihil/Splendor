@@ -1,0 +1,28 @@
+﻿@model Splendor.Models.PlayerInGame
+@{
+    Splendor.Models.PlayerInGame currentPlayer = Model.Game.PlayerInGames.FirstOrDefault(x => x.Player.UserName.Equals(User.Identity.Name));
+}
+
+<div class="aristocrats">
+    @if (Model.Equals(currentPlayer) || Model.Equals(Model.Game.TableInGame))
+    {
+        foreach (var item in Model.AristocratInGames)
+        {
+            @Ajax.ActionLink(item.Aristocrat.Id.ToString(), "TakeAristocrat", "Games", new { },
+                     new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "GamePlay" }, new
+                     {
+                         @class = "not-active",
+                         @style = "background: url(" + @Url.Content(item.Aristocrat.ImagePath) + ") no-repeat top left"
+                     })
+        }
+    }
+    else
+    {
+        <div class="aristocrats">
+            @foreach (var item in Model.AristocratInGames)
+            {
+                <img src="@Url.Content(item.Aristocrat.ImagePath)" alt="@Html.Raw(item.AristocratId)" />
+            }
+        </div>
+    }
+</div>

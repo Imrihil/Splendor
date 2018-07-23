@@ -1,0 +1,74 @@
+﻿@model Splendor.Models.Aristocrat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Aristocrat</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireGreen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireGreen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireWhite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireWhite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireBlue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireBlue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireBlack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireBlack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn" })
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn" })
+</p>

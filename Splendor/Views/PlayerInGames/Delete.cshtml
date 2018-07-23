@@ -1,0 +1,96 @@
+﻿@model Splendor.Models.PlayerInGame
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PlayerInGame</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceGreen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceGreen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceWhite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceWhite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceBlue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceBlue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceBlack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceBlack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResourceGold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResourceGold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WonGame)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WonGame)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,45 @@
+﻿@model PagedList.IPagedList<Splendor.Models.Game>
+@{
+    string searchString = ViewBag.searchString ?? "";
+}
+
+<table class="table table-link">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Number of Players
+        </th>
+        <th>
+            Creation Time
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr onclick="location.href = '@(Url.Action("Details", "Games", new { id = item.Id }))'">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.PlayerInGames == null)
+                {
+                    <span>0</span>
+                }
+                else
+                {
+                    <span>@item.PlayerInGames.Where(x => x.PlayerId.Equals(1) == false && x.Name.Equals("Observer") == false).Count()</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@

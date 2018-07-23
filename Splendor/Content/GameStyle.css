@@ -1,0 +1,507 @@
+﻿div#GamePlay {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    width: auto;
+}
+
+    div#GamePlay ~ * { /* To hide footer*/
+        position: fixed;
+        left: -10000px;
+    }
+
+    /* common a */
+
+    div#GamePlay td.cards a,
+    div#GamePlay td.cards-reserved a,
+    div#GamePlay td.gems a,
+    div#GamePlay div.aristocrats a,
+    div#GamePlay div.gems a,
+    div#GamePlay div.gems-taken a.gem {
+        display: block;
+        float: left;
+        text-indent: -9999px;
+        margin: 1px;
+        box-shadow: 0px 0px 5px -1px #0a0d10;
+    }
+
+    div#GamePlay td.cards a,
+    div#GamePlay td.cards-reserved a {
+        min-height: 138px;
+        height: 138px;
+        min-width: 99px;
+        width: 99px;
+    }
+
+    div#GamePlay td.gems a,
+    div#GamePlay div.aristocrats a,
+    div#GamePlay div.gems a,
+    div#GamePlay div.gems-taken a.gem {
+        min-height: 99px;
+        height: 99px;
+        min-width: 99px;
+        width: 99px;
+    }
+
+    div#GamePlay td.cards a,
+    div#GamePlay td.cards-reserved a,
+    div#GamePlay div.aristocrats a {
+        border-radius: 10px;
+    }
+
+    div#GamePlay td.gems a,
+    div#GamePlay div.gems a,
+    div#GamePlay div.gems-taken a.gem {
+        border-radius: 100px;
+    }
+
+    div#GamePlay td.cards a:hover,
+    div#GamePlay td.cards-reserved a:hover,
+    div#GamePlay div.aristocrats a:hover {
+        /*opacity: 0.8;*/
+    }
+
+    div#GamePlay table td {
+        vertical-align: top;
+    }
+
+    div#GamePlay div.player,
+    div#GamePlay div.current-player,
+    div#GamePlay div.table-player {
+        padding: 10px;
+    }
+
+    /* Player-opponents */
+
+    div#GamePlay div.players-opponents {
+        position: fixed;
+        right: -1000px;
+        top: 60px;
+        width: 1000px;
+        transition: transform 1s;
+        transition-timing-function: ease-in-out;
+    }
+
+        div#GamePlay div.players-opponents .slide {
+            transform: translate(-340px);
+        }
+
+        div#GamePlay div.players-opponents div.player {
+            background: rgba(30, 30, 30, 0.9);
+            background: -webkit-linear-gradient(left, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 1)); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(right, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 1)); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(right, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 1)); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(to right, rgba(30, 30, 30, 0.5), rgba(30, 30, 30, 1)); /* Standard syntax */
+            position: relative;
+            width: 340px;
+            height: 250px;
+            border: solid 0px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+            div#GamePlay div.players-opponents div.player:not(:first-child) {
+                margin-top: -128px;
+            }
+
+            div#GamePlay div.players-opponents div.player p.player-name,
+            div#GamePlay div.current-player-pane div.current-player p.player-name {
+                color: #ffffff;
+                font-size: 18px;
+                font-stretch: condensed;
+                font-weight: bold;
+                text-align: center;
+                position: absolute;
+                padding-top: 5px;
+                height: 30px;
+                border: solid 0px;
+            }
+
+            div#GamePlay div.players-opponents div.player p.player-name {
+                background: rgba(30, 30, 30, 0.9);
+                background: -webkit-linear-gradient(rgba(30, 30, 40, 0.8), rgba(30, 30, 30, 0.5)); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(rgba(30, 30, 40, 0.8), rgba(30, 30, 30, 0.5)); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(rgba(30, 30, 40, 0.8), rgba(30, 30, 30, 0.5)); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(rgba(30, 30, 30, 0.8), rgba(30, 30, 30, 0.5)); /* Standard syntax */
+                top: 75px;
+                left: -75px;
+                min-width: 120px;
+                width: 120px;
+                max-width: 120px;
+                transform: rotate(-90deg);
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+
+            div#GamePlay div.players-opponents div.player table.player {
+                margin-right: auto;
+            }
+
+            div#GamePlay div.players-opponents div.player td.cards {
+            }
+
+                div#GamePlay div.players-opponents div.player td.cards div {
+                    position: relative;
+                    float: left;
+                    max-width: 53px;
+                }
+
+                    div#GamePlay div.players-opponents div.player td.cards div.card-reserved img {
+                        margin: 1px;
+                        box-shadow: 0px 0px 5px 2px rgba(230, 230, 230, 0.2);
+                    }
+
+                    div#GamePlay div.players-opponents div.player td.cards div img {
+                        width: 50px;
+                        margin: 1px;
+                        box-shadow: 0px 0px 5px -1px #0a0d10;
+                        border-radius: 5px;
+                    }
+
+                        div#GamePlay div.players-opponents div.player td.cards div img:not(:first-child) {
+                            margin-top: -60px;
+                        }
+
+            div#GamePlay div.players-opponents div.player td.gems-aristocrats {
+            }
+
+                div#GamePlay div.players-opponents div.player td.gems-aristocrats img {
+                    position: relative;
+                    float: left;
+                    width: 50px;
+                    box-shadow: 0px 0px 5px -1px #0a0d10;
+                }
+
+                div#GamePlay div.players-opponents div.player td.gems-aristocrats div.gems img {
+                    border-radius: 100px;
+                }
+
+                div#GamePlay div.players-opponents div.player td.gems-aristocrats div.aristocrats img {
+                    border-radius: 10px;
+                }
+
+                div#GamePlay div.players-opponents div.player td.gems-aristocrats div.gems img:not(:first-child) {
+                    margin-left: -40px;
+                }
+
+                div#GamePlay div.players-opponents div.player td.gems-aristocrats div.aristocrats {
+                    float: right;
+                }
+
+                    div#GamePlay div.players-opponents div.player td.gems-aristocrats div.aristocrats img:not(:first-child) {
+                        margin-left: -35px;
+                    }
+
+    /* Current-player */
+
+    div#GamePlay div.current-player-pane div.current-player {
+        background: rgba(20, 30, 40, 0.9);
+        background: -webkit-linear-gradient(rgba(20, 30, 40, 0.5), rgba(20, 30, 40, 1)); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(20, 30, 40, 0.5), rgba(20, 30, 40, 1)); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(20, 30, 40, 0.5), rgba(20, 30, 40, 1)); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(20, 30, 40, 0.5), rgba(20, 30, 40, 1)); /* Standard syntax */
+        position: relative;
+        width: 770px;
+        min-height: 442px;
+        max-height: 442px;
+        border: solid 0px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+        div#GamePlay div.current-player-pane div.current-player p.player-name {
+            background: rgba(20, 30, 40, 0.9);
+            background: -webkit-linear-gradient(rgba(20, 30, 40, 0.8), rgba(20, 30, 40, 0.5)); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(rgba(20, 30, 40, 0.8), rgba(20, 30, 40, 0.5)); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(rgba(20, 30, 40, 0.8), rgba(20, 30, 40, 0.5)); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(rgba(20, 30, 40, 0.8), rgba(20, 30, 40, 0.5)); /* Standard syntax */
+            top: -30px;
+            left: 25px;
+            min-width: 720px;
+            width: 720px;
+            max-width: 720px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        div#GamePlay div.current-player-pane div.current-player table.current-player {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        div#GamePlay div.current-player-pane div.current-player div.player-gems {
+            position: absolute;
+            top: -25px;
+            right: 40px;
+        }
+
+            div#GamePlay div.current-player-pane div.current-player div.player-gems img {
+                position: relative;
+                float: right;
+                width: 20px;
+                box-shadow: 0px 0px 2px 0px rgb(0, 0, 0);
+            }
+
+                div#GamePlay div.current-player-pane div.current-player div.player-gems img:not(:first-child) {
+                    margin-right: -10px;
+                }
+
+        div#GamePlay div.current-player-pane div.current-player div.player-cards {
+            position: absolute;
+            top: -25px;
+            left: 40px;
+        }
+
+            div#GamePlay div.current-player-pane div.current-player div.player-cards img {
+                position: relative;
+                float: left;
+                height: 20px;
+                box-shadow: 0px 0px 2px 0px rgb(0, 0, 0);
+                border-radius: 5px;
+            }
+
+                div#GamePlay div.current-player-pane div.current-player div.player-cards img:not(:first-child) {
+                    margin-left: -10px;
+                }
+
+        div#GamePlay div.current-player-pane div.current-player td.aristocrats a:not(:first-child) {
+            margin-top: -70px;
+        }
+
+        div#GamePlay div.current-player-pane div.current-player td.cards {
+            min-width: 100px;
+            height: 200px;
+        }
+
+            div#GamePlay div.current-player-pane div.current-player td.cards a:not(:first-child) {
+                margin-top: -110px;
+            }
+
+        div#GamePlay div.current-player-pane div.current-player td.cards-reserved {
+            max-width: 100px;
+        }
+
+            div#GamePlay div.current-player-pane div.current-player td.cards-reserved a {
+                margin: 1px;
+                box-shadow: 0px 0px 5px 2px rgba(230, 230, 230, 0.2);
+            }
+
+        div#GamePlay div.current-player-pane div.current-player td.gems {
+            min-width: 105px;
+            height: 160px;
+            width: 105px;
+        }
+
+            div#GamePlay div.current-player-pane div.current-player td.gems a:not(:first-child) {
+                margin-top: -90px;
+            }
+
+    /* Player active */
+
+    div#GamePlay div.player-active > p.player-name {
+        background: rgba(120, 130, 40, 0.9) !important;
+        background: -webkit-linear-gradient(rgba(120, 130, 40, 0.8), rgba(20, 30, 40, 0.5)) !important; /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(120, 130, 40, 0.8), rgba(20, 30, 40, 0.5)) !important; /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(120, 130, 40, 0.8), rgba(20, 30, 40, 0.5)) !important; /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(120, 130, 40, 0.8), rgba(20, 30, 40, 0.5)) !important; /* Standard syntax */
+    }
+
+    /* Table player */
+
+    div#GamePlay table.table-player {
+        background: rgba(170, 200, 170, 0.2);
+        box-shadow: 0px 0px 20px 20px rgba(170, 200, 170, 0.2);
+        border: 0px solid;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    div#GamePlay div.table-player {
+        width: 655px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        div#GamePlay div.table-player td.aristocrats {
+            min-width: 507px;
+        }
+
+        div#GamePlay div.table-player td.cards {
+            min-width: 507px;
+        }
+
+        div#GamePlay div.table-player div.lvl {
+            position: relative;
+            float: left;
+        }
+
+        div#GamePlay div.table-player div.empty-card {
+            float: left;
+            min-height: 138px;
+            height: 138px;
+            min-width: 99px;
+            width: 99px;
+        }
+
+        div#GamePlay div.table-player td.cards-reserved {
+        }
+
+        div#GamePlay div.table-player td.gems {
+            min-width: 151px;
+        }
+
+        div#GamePlay div.table-player div.gems a:not(:first-child) {
+            margin-right: -92px;
+        }
+
+        div#GamePlay div.table-player div.gems a {
+            float: right;
+            margin-top: 3px;
+        }
+
+        div#GamePlay div.table-player div.gems div:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+    /* Book-buy button */
+
+    div#GamePlay a#book-buy {
+        position: fixed;
+        top: 50px;
+        left: 50%;
+        transform: translate(-50%);
+        width: 300px;
+        margin: 0px;
+        border-radius: 0px;
+        border-bottom-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+        box-shadow: 0px 0px 5px 5px #000509;
+    }
+
+    /* Gems-taken */
+
+    div#GamePlay div.gems-taken {
+        background: rgba(10, 13, 16, 0.9);
+        background: -webkit-linear-gradient(rgba(0, 5, 9, 0.9), rgba(0, 5, 9, 0.1)); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(0, 5, 9, 0.9), rgba(0, 5, 9, 0.1)); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(0, 5, 9, 0.9), rgba(0, 5, 9, 0.1)); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(0, 5, 9, 0.9), rgba(0, 5, 9, 0.1)); /* Standard syntax */
+        position: fixed;
+        top: 40px;
+        margin: 0px;
+        padding: 15px;
+        text-align: center;
+        border: solid 0px;
+    }
+
+        div#GamePlay div.gems-taken > a:not(:first-child) {
+            position: relative;
+            float: left;
+            margin-left: -50px;
+        }
+
+        div#GamePlay div.gems-taken div.btn-group-vertical {
+            margin-top: 10px;
+        }
+
+            div#GamePlay div.gems-taken div.btn-group-vertical > a {
+                min-width: 100px;
+                width: 100px;
+                max-width: 100px;
+            }
+
+    /* Info */
+
+    div#GamePlay div.active-info {
+        position: fixed;
+        background: #bfc8d1; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#bfc8d1, #a5a5a5); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#bfc8d1, #a5a5a5); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#bfc8d1, #a5a5a5); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#bfc8d1, #a5a5a5); /* Standard syntax */
+        border: solid 1px #d0d0d0;
+        padding: 5px;
+        border-radius: 30px;
+        transition: transform 0s;
+    }
+
+        div#GamePlay div.active-info img {
+            width: 20px;
+        }
+
+    div#GamePlay div.non-active-info {
+        display: none;
+    }
+
+/* End game info */
+
+div#EndInfo {
+    position: fixed;
+    background: #20242d; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(circle, #486072, #20242d), #20242d; /* Safari */
+    background: -o-linear-gradient(right, #20242d, #486072, #20242d), #20242d; /* For Opera 11.1 to 12.0 */
+    background: -moz-radial-gradient(circle, #486072, #20242d), #20242d; /* Firefox 3.6 to 15 */
+    background: radial-gradient(circle, #486072, #20242d), #20242d; /* Standard syntax */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 5px #20242d;
+    text-align: center;
+}
+
+    div#EndInfo p {
+    }
+
+@media (min-width: 768px) {
+    div#GamePlay div.current-player-pane {
+        position: fixed;
+        bottom: 0px;
+        transition: transform 1s;
+        transition-timing-function: ease-in-out;
+        min-height: 442px;
+        margin: 0px;
+        left: 50%;
+        transform: translate(-50%, 442px);
+    }
+
+        div#GamePlay div.current-player-pane .slide {
+            transform: translate(0, -442px);
+        }
+}
+
+@media (max-width: 768px) {
+    div#GamePlay div.current-player-pane {
+        margin: 0px;
+        margin-top: 50px;
+        min-height: 442px;
+    }
+
+    div#GamePlay a#book-buy {
+        width: 150px;
+    }
+}
+
+@media(min-width: 600px) {
+    div#GamePlay div.gems-taken {
+        left: 50%;
+        transform: translate(-50%);
+        width: 400px;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+}
+
+@media(max-width: 600px) {
+    div#GamePlay div.gems-taken {
+        right: 0px;
+        width: 130px;
+        border-bottom-left-radius: 40px;
+    }
+}

@@ -1,0 +1,66 @@
+﻿@model Splendor.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+
+    string saveClassesArgs = "";
+}
+
+<h2>@Model.Name</h2>
+
+<div id="GamePlay">
+    @if (Model.IsStarted)
+    {
+        var playerInGames = Model.PlayerInGames.Where(x => x.Id.Equals(Model.TableInGame.Id) == false && x.Name.Equals("Observer") == false);
+        foreach (var playerInGame in playerInGames)
+        {
+            saveClassesArgs = string.IsNullOrEmpty(saveClassesArgs) ? playerInGame.Id.ToString() : string.Format("{0}, {1}", saveClassesArgs, playerInGame.Id);
+        }
+        @Html.Partial("_PlayGame", Model)
+    }
+    else
+    {
+        @Html.Partial("_DetailsPartial", Model)
+    }
+</div>
+
+@* Uncomment to enable auto refresh *@
+<script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(function () {
+            saveState(@Html.Raw(saveClassesArgs));
+            $.ajax({
+                type: "GET",
+                url: '/Games/Details/' + @Html.Raw(Model.Id),
+                success: function (msg) {
+                    document.getElementById("GamePlay").innerHTML = msg;
+                    loadState();
+                    $("div.player")
+                      .mouseleave(function () {
+                          clearSlides();
+                          saveState(@Html.Raw(saveClassesArgs));
+                      });
+                    $("div.current-player")
+                      .mouseleave(function () {
+                          clearSlides();
+                          saveState(@Html.Raw(saveClassesArgs));
+                      });
+                    $("div.cards a")
+                      .mouseleave(function () {
+                          clearInfo();
+                          saveState(@Html.Raw(saveClassesArgs));
+                      });
+                    $("td.cards-reserved a")
+                      .mouseleave(function () {
+                          clearInfo();
+                          saveState(@Html.Raw(saveClassesArgs));
+                      });
+                    $("a").mousedown(function () {
+                        clearInfo();
+                        saveState(@Html.Raw(saveClassesArgs));
+                    });
+                }
+            });
+        }, 5000);
+    }); // every 5 sec
+</script>
